@@ -1,0 +1,309 @@
+/* --- Account Dashboard Layout & Styles --- */
+
+.container.layout-account {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    gap: 1.5rem;
+    max-width: 1400px;
+    width: 95%;
+    margin: 2rem auto;
+}
+
+/* Sidebar Navigation */
+.account-sidebar {
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    padding: 1.25rem;
+    height: fit-content;
+}
+
+.user-profile-card {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding-bottom: 1.25rem;
+    margin-bottom: 1.25rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.avatar-circle {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background-color: var(--primary-color);
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.25rem;
+    font-weight: 700;
+}
+
+.profile-meta h4 {
+    font-size: 1rem;
+    color: var(--text-primary);
+}
+
+.profile-meta span {
+    display: block;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+}
+
+.kyc-badge.verified {
+    color: var(--success-color);
+    font-weight: 700;
+    font-size: 0.75rem;
+}
+
+.account-nav-menu {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+}
+
+.account-nav-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem 1rem;
+    border-radius: var(--radius-md);
+    color: var(--text-muted);
+    font-weight: 600;
+    font-size: 0.9rem;
+    transition: all 0.2s ease;
+    border: none;
+    background: none;
+    width: 100%;
+    text-align: left;
+    cursor: pointer;
+}
+
+.account-nav-item:hover, .account-nav-item.active {
+    background-color: var(--card-hover);
+    color: var(--text-primary);
+}
+
+.account-nav-item.active {
+    border-left: 3px solid var(--primary-color);
+}
+
+.account-nav-item.logout {
+    color: var(--live-color);
+    margin-top: 1rem;
+    border-top: 1px solid var(--border-color);
+    border-radius: 0;
+    padding-top: 1rem;
+}
+
+.nav-badge {
+    margin-left: auto;
+    background-color: var(--primary-color);
+    color: white;
+    font-size: 0.75rem;
+    padding: 0.1rem 0.5rem;
+    border-radius: 10px;
+}
+
+/* Overview Metrics Grid */
+.metrics-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1.25rem;
+    margin-bottom: 2rem;
+}
+
+.metric-card {
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    padding: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.metric-header {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+}
+
+.metric-value {
+    font-size: 1.6rem;
+    font-weight: 800;
+    color: var(--text-primary);
+    margin: 0.5rem 0;
+}
+
+.metric-actions {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+}
+
+.metric-subtext {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+}
+
+.metric-link {
+    font-size: 0.85rem;
+    color: var(--primary-color);
+    font-weight: 600;
+}
+
+/* Progress Limit Bar */
+.limit-progress-group {
+    margin: 0.5rem 0;
+}
+
+.limit-labels {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    margin-bottom: 0.25rem;
+}
+
+.progress-bar-bg {
+    height: 6px;
+    background-color: var(--border-color);
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.progress-bar-fill {
+    height: 100%;
+    background-color: var(--success-color);
+}
+
+/* Dashboard Sections & Tables */
+.dashboard-section {
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.section-title-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.25rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.link-action {
+    color: var(--primary-color);
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+/* Open Bets Cards */
+.dash-bet-card {
+    background-color: #0e131a;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: 1rem;
+    margin-bottom: 1rem;
+}
+
+.bet-card-header {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    margin-bottom: 0.75rem;
+}
+
+.bet-type-badge {
+    background-color: var(--border-color);
+    color: var(--text-primary);
+    padding: 0.15rem 0.5rem;
+    border-radius: var(--radius-sm);
+    font-weight: 700;
+}
+
+.bet-leg {
+    display: flex;
+    flex-direction: column;
+    padding: 0.5rem 0;
+    border-bottom: 1px dashed var(--border-color);
+    font-size: 0.875rem;
+}
+
+.bet-leg:last-child {
+    border-bottom: none;
+}
+
+.leg-status.live { color: var(--live-color); font-weight: 700; }
+.leg-status.upcoming { color: var(--text-muted); }
+
+.bet-card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 0.75rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid var(--border-color);
+    font-size: 0.85rem;
+}
+
+.btn-cashout {
+    background-color: var(--accent-color);
+    color: #000000;
+    font-weight: 700;
+}
+
+/* Data Table */
+.table-wrapper {
+    overflow-x: auto;
+}
+
+.data-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+    font-size: 0.875rem;
+}
+
+.data-table th {
+    background-color: #0e131a;
+    color: var(--text-muted);
+    padding: 0.75rem 1rem;
+    font-weight: 600;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.data-table td {
+    padding: 0.85rem 1rem;
+    border-bottom: 1px solid var(--border-color);
+    color: var(--text-primary);
+}
+
+.txn-type {
+    padding: 0.2rem 0.5rem;
+    border-radius: var(--radius-sm);
+    font-size: 0.75rem;
+    font-weight: 700;
+}
+
+.txn-type.credit { background-color: rgba(22, 163, 74, 0.15); color: var(--success-color); }
+.txn-type.debit { background-color: rgba(239, 68, 68, 0.15); color: var(--live-color); }
+
+.status-pill.completed { color: var(--success-color); }
+.text-success { color: var(--success-color); font-weight: 700; }
+.text-danger { color: var(--live-color); font-weight: 700; }
+.text-accent { color: var(--accent-color); font-weight: 700; }
+
+@media (max-width: 992px) {
+    .container.layout-account {
+        grid-template-columns: 1fr;
+    }
+}
+
