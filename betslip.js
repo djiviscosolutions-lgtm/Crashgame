@@ -12,7 +12,10 @@ class BetSlipManager {
         this.minStake = 10;
         this.maxStake = 50000;
 
-        // Cache DOM Elements
+        // Default mock initial balance if not set in localStorage
+        this.defaultBalance = 2500;
+
+        // Cache persistent DOM Elements
         this.dom = {
             drawer: document.getElementById('betslip-drawer'),
             itemsContainer: document.getElementById('betslip-items'),
@@ -30,8 +33,9 @@ class BetSlipManager {
     }
 
     init() {
-        // Load saved state from LocalStorage if present
+        // Load saved selections and wallet balance from LocalStorage
         this.loadFromStorage();
+        this.syncBalanceDisplay();
 
         // Bind global event listeners
         this.bindOddsButtonListeners();
@@ -181,15 +185,30 @@ class BetSlipManager {
     }
 
     getUserBalance() {
-        if (!this.dom.userBalanceDisplay) return 2500; // Fallback mock value
-        const text = this.dom.userBalanceDisplay.textContent.replace(/[^0-9.]/g, '');
-        const parsed = parseFloat(text);
-        return isNaN(parsed) ? 0 : parsed;
+        try {
+            const savedBalance = localStorage.getItem('betbrand_user_balance');
+            if (savedBalance !== null) {
+                return parseFloat(savedBalance);
+            }
+        } catch (e) {
+            console.warn('Unable to read balance from localStorage', e);
+        }
+        return this.defaultBalance;
     }
 
     updateUserBalance(newBalance) {
+        try {
+            localStorage.setItem('betbrand_user_balance', newBalance.toString());
+        } catch (e) {
+            console.warn('Unable to save balance to localStorage', e);
+        }
+        this.syncBalanceDisplay();
+    }
+
+    syncBalanceDisplay() {
+        const currentBalance = this.getUserBalance();
         if (this.dom.userBalanceDisplay) {
-            this.dom.userBalanceDisplay.textContent = `KSh ${newBalance.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+            this.dom.userBalanceDisplay.textContent = `KSh ${currentBalance.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
         }
     }
 
@@ -234,16 +253,16 @@ class BetSlipManager {
     }
 
     renderOddsButtonStates() {
-        // Reset all page odds buttons
+        // Reset all active odds buttons on page
         document.querySelectorAll('.odds-btn').forEach(btn => {
             btn.classList.remove('selected', 'active');
         });
 
-        // Highlight currently selected odds buttons
+        // Highlight active picks
         this.selections.forEach(sel => {
             const targetBtn = document.querySelector(`.odds-btn[data-match-id="${sel.matchId}"][data-outcome="${sel.outcome}"]`);
             if (targetBtn) {
-                targetBtn.classList.add('selected');
+                targetBtn.classList.add('selected', 'active');
             }
         });
     }
@@ -295,7 +314,7 @@ class BetSlipManager {
 
         this.dom.itemsContainer.innerHTML = html;
 
-        // Bind remove button events inside list
+        // Bind remove actions on list items
         this.dom.itemsContainer.querySelectorAll('.slip-remove-btn').forEach(btn => {
             btn.addEventListener('click', (e) => {
                 const matchId = e.currentTarget.getAttribute('data-remove-id');
@@ -333,7 +352,7 @@ class BetSlipManager {
         const totalOdds = this.calculateTotalOdds();
         const payout = this.calculatePotentialPayout();
 
-        // Process deduction
+        // Process deduction and update storage
         const newBalance = currentBalance - this.stake;
         this.updateUserBalance(newBalance);
 
@@ -370,4 +389,3 @@ class BetSlipManager {
 document.addEventListener('DOMContentLoaded', () => {
     window.betSlipApp = new BetSlipManager();
 });
-
