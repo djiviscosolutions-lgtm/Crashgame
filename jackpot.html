@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weekly Mega Jackpot - BetBrand</title>
+    <!-- External Stylesheets -->
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="jackpot.css">
+</head>
+<body class="theme-dark">
+
+    <!-- 1. Header / Navigation -->
+    <header class="navbar">
+        <div class="nav-left">
+            <a href="/" class="logo">
+                <span class="logo-accent">BET</span>BRAND
+            </a>
+            <nav class="primary-nav">
+                <a href="/" class="nav-link">Sports</a>
+                <a href="/live" class="nav-link">Live Now</a>
+                <a href="/jackpot" class="nav-link active">Jackpot</a>
+                <a href="/virtuals" class="nav-link">Virtuals</a>
+                <a href="/promotions" class="nav-link">Promotions</a>
+            </nav>
+        </div>
+
+        <div class="nav-right">
+            <!-- Guest View -->
+            <div id="auth-buttons" class="auth-group">
+                <a href="/login" class="btn btn-secondary btn-sm">Log In</a>
+                <a href="/register" class="btn btn-primary btn-sm">Register</a>
+            </div>
+
+            <!-- Authenticated User View (Toggle via JS) -->
+            <div id="user-profile" class="user-group" style="display: none;">
+                <div class="wallet-info">
+                    <span class="wallet-label">Balance</span>
+                    <strong id="user-balance" class="wallet-amount">KSh 2,500.00</strong>
+                </div>
+                <a href="/account/deposit" class="btn btn-success btn-sm">Deposit</a>
+                <a href="/account/dashboard" class="profile-avatar" aria-label="Account">👤</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- 2. Main Jackpot Page Area -->
+    <main class="container layout-with-sidebar">
+
+        <div class="main-content">
+
+            <!-- Hero Jackpot Header -->
+            <section class="jackpot-hero">
+                <div class="jackpot-hero-badge">WEEKLY MEGA JACKPOT #1042</div>
+                <h1 class="jackpot-title">GRAND PRIZE: <span class="text-accent">KSh 50,000,000</span></h1>
+                <p class="jackpot-subtitle">Predict the 1x2 outcome of all 15 matches to win. Bonus prizes paid for 12, 13, and 14 correct picks!</p>
+                
+                <div class="jackpot-meta-bar">
+                    <div class="meta-item">
+                        <span class="label">Entry Fee:</span>
+                        <strong class="value">KSh 99.00</strong>
+                    </div>
+                    <div class="meta-divider"></div>
+                    <div class="meta-item">
+                        <span class="label">Time Remaining:</span>
+                        <strong class="value text-warning" id="jackpot-countdown">2d 14h 22m 10s</strong>
+                    </div>
+                    <div class="meta-divider"></div>
+                    <div class="meta-item">
+                        <span class="label">Matches Selected:</span>
+                        <strong class="value" id="selected-count-header">0 / 15</strong>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Quick Auto Pick & Utility Bar -->
+            <div class="jackpot-controls-bar">
+                <div class="controls-left">
+                    <h3>Select 15 Matches</h3>
+                    <span class="subtext">Click 1 (Home Win), X (Draw), or 2 (Away Win)</span>
+                </div>
+                <div class="controls-right">
+                    <button id="auto-pick-btn" class="btn btn-secondary btn-sm">
+                        <span>⚡</span> Auto Pick (Random)
+                    </button>
+                    <button id="clear-jackpot-btn" class="btn btn-outline btn-sm">
+                        <span>🗑️</span> Clear All
+                    </button>
+                </div>
+            </div>
+
+            <!-- Jackpot 15 Match Grid Selection -->
+            <div class="jackpot-match-list" id="jackpot-match-list">
+                
+                <!-- Single Jackpot Match Item Template -->
+                <!-- Repeats for 15 matches; dynamically generated via jackpot.js -->
+
+            </div>
+
+            <!-- Past Jackpot Winners Section -->
+            <section class="jackpot-winners-section">
+                <div class="section-header">
+                    <h3>🏆 Previous Mega Jackpot Winners</h3>
+                </div>
+                <div class="table-wrapper">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Pool #</th>
+                                <th>Date</th>
+                                <th>Winner</th>
+                                <th>Picks Correct</th>
+                                <th>Amount Won</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>#1041</td>
+                                <td>27 Jul 2026</td>
+                                <td>John K. (+254 712***45)</td>
+                                <td>15 / 15</td>
+                                <td class="text-success">KSh 50,000,000.00</td>
+                            </tr>
+                            <tr>
+                                <td>#1040</td>
+                                <td>20 Jul 2026</td>
+                                <td>Mary W. (+254 723***89)</td>
+                                <td>14 / 15 (Bonus)</td>
+                                <td class="text-success">KSh 1,250,000.00</td>
+                            </tr>
+                            <tr>
+                                <td>#1039</td>
+                                <td>13 Jul 2026</td>
+                                <td>David M. (+254 701***12)</td>
+                                <td>15 / 15</td>
+                                <td class="text-success">KSh 50,000,000.00</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+        </div>
+
+        <!-- 3. Jackpot Coupon Summary Sidebar -->
+        <aside class="betslip-container jackpot-summary-drawer">
+            <div class="betslip-header">
+                <h4>Jackpot Entry Coupon</h4>
+            </div>
+
+            <div class="betslip-body">
+                <div class="progress-box">
+                    <div class="progress-info">
+                        <span>Pick Progress</span>
+                        <strong id="progress-text">0 / 15 Picked</strong>
+                    </div>
+                    <div class="progress-bar-bg">
+                        <div class="progress-bar-fill" id="progress-fill" style="width: 0%;"></div>
+                    </div>
+                </div>
+
+                <div class="coupon-summary-details">
+                    <div class="summary-row">
+                        <span>Jackpot Pool:</span>
+                        <strong>#1042</strong>
+                    </div>
+                    <div class="summary-row">
+                        <span>Combinations:</span>
+                        <strong id="combo-count">1</strong>
+                    </div>
+                    <div class="summary-row">
+                        <span>Ticket Price:</span>
+                        <strong>KSh 99.00</strong>
+                    </div>
+                    <div class="summary-row main-payout">
+                        <span>Total Stake:</span>
+                        <strong id="jackpot-total-stake" class="text-accent">KSh 0.00</strong>
+                    </div>
+                </div>
+
+                <div class="jackpot-instructions">
+                    <p>💡 <em>Selecting multiple choices (e.g. 1 and X) on a single game creates double chances and multiplies your combinations.</em></p>
+                </div>
+            </div>
+
+            <div class="betslip-footer">
+                <button id="place-jackpot-btn" class="btn btn-success btn-full" disabled>
+                    Place Jackpot Bet (KSh 99.00)
+                </button>
+            </div>
+        </aside>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="compliance-bar">
+            <span class="age-restriction">18+</span>
+            <p>Gambling can be addictive. Please play responsibly.</p>
+            <p>&copy; 2026 BetBrand. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript Files -->
+    <script src="script.js"></script>
+    <script src="jackpot.js"></script>
+</body>
+</html>
+
