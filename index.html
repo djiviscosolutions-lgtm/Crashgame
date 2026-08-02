@@ -3,72 +3,191 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Modern Web App</title>
-    <!-- Link External Stylesheet -->
+    <title>BetBrand - Live Sportsbook & Casino</title>
+    <!-- External Stylesheet -->
     <link rel="stylesheet" href="styles.css">
 </head>
-<body>
+<body class="theme-dark">
 
-    <!-- Header / Navigation -->
+    <!-- 1. Header / Top Navigation -->
     <header class="navbar">
-        <div class="logo">AppBrand</div>
-        <nav>
-            <ul class="nav-links">
-                <li><a href="#home">Home</a></li>
-                <li><a href="#features">Features</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
-        </nav>
-        <button id="theme-toggle" class="btn btn-secondary">Toggle Mode</button>
+        <div class="nav-left">
+            <a href="/" class="logo">BetBrand</a>
+            <nav class="primary-nav">
+                <a href="/" class="active">Sports</a>
+                <a href="/live">Live Now</a>
+                <a href="/jackpot">Jackpot</a>
+                <a href="/virtuals">Virtuals</a>
+                <a href="/promotions">Promos</a>
+            </nav>
+        </div>
+
+        <div class="nav-right">
+            <!-- Guest View -->
+            <div id="auth-buttons" class="auth-group">
+                <a href="/login" class="btn btn-secondary">Login</a>
+                <a href="/register" class="btn btn-primary">Register</a>
+            </div>
+
+            <!-- Authenticated User View (Hidden by default via CSS/JS) -->
+            <div id="user-profile" class="user-group" style="display: none;">
+                <div class="wallet-info">
+                    <span class="wallet-label">Balance:</span>
+                    <strong id="user-balance">KSh 0.00</strong>
+                </div>
+                <a href="/account/deposit" class="btn btn-success btn-sm">Deposit</a>
+                <a href="/account/dashboard" class="profile-avatar" aria-label="Account">👤</a>
+            </div>
+
+            <button id="search-toggle-btn" class="btn btn-icon" aria-label="Search">🔍</button>
+        </div>
     </header>
 
-    <!-- Main Content Area -->
-    <main class="container">
-        <!-- Hero Section -->
-        <section id="home" class="hero">
-            <h1>Welcome to Your New Web App</h1>
-            <p>A clean, responsive multi-file front-end foundation built with native HTML, CSS, and JS.</p>
-            <button id="action-btn" class="btn btn-primary">Click Me</button>
-            <div id="action-feedback" class="feedback-message"></div>
-        </section>
+    <!-- Sports Category Sub-Bar -->
+    <nav class="sports-bar">
+        <ul class="sports-list">
+            <li><a href="/sports/football" class="active">⚽ Football</a></li>
+            <li><a href="/sports/basketball">🏀 Basketball</a></li>
+            <li><a href="/sports/tennis">🎾 Tennis</a></li>
+            <li><a href="/sports/esports">🎮 Esports</a></li>
+            <li><a href="/sports/rugby">🏉 Rugby</a></li>
+        </ul>
+    </nav>
 
-        <!-- Dynamic Counter Card Section -->
-        <section id="features" class="card-section">
-            <div class="card">
-                <h3>Interactive Counter</h3>
-                <p id="counter-value">0</p>
-                <div class="button-group" id="counter-group">
-                    <button id="decrement-btn" class="btn btn-outline" data-action="decrement">-</button>
-                    <button id="increment-btn" class="btn btn-outline" data-action="increment">+</button>
+    <!-- Main Betting Content Area -->
+    <main class="container layout-with-sidebar">
+
+        <!-- Main Feed -->
+        <div class="main-content">
+            
+            <!-- Hero / Jackpot Banner -->
+            <section class="hero-banner">
+                <div class="banner-content">
+                    <span class="badge">WEEKLY MEGA JACKPOT</span>
+                    <h2>Win Up To KSh 50,000,000</h2>
+                    <p>Predict 15/15 match outcomes to hit the grand prize.</p>
+                    <a href="/jackpot" class="btn btn-primary">Play Jackpot Now</a>
                 </div>
-            </div>
-        </section>
+            </section>
 
-        <!-- Contact Section -->
-        <section id="contact" class="card-section">
-            <div class="card contact-card">
-                <h3>Contact Us</h3>
-                <form id="contact-form">
-                    <div class="form-group">
-                        <input type="text" id="username-input" placeholder="Your Name" required>
-                    </div>
-                    <div class="form-group">
-                        <input type="email" id="email-input" placeholder="Your Email" required>
-                    </div>
-                    <button type="submit" class="btn btn-primary">Send Message</button>
-                </form>
-                <div id="form-feedback" class="feedback-message"></div>
+            <!-- Featured / Live Matches Section -->
+            <section class="match-section">
+                <div class="section-header">
+                    <h3>🔥 Live & Upcoming Matches</h3>
+                    <a href="/live" class="view-all">View All Live (&nbsp;<span id="live-count">12</span>&nbsp;)</a>
+                </div>
+
+                <!-- Match List Container -->
+                <div class="match-list" id="match-list">
+                    
+                    <!-- Single Match Item Example -->
+                    <article class="match-card" data-match-id="101">
+                        <div class="match-meta">
+                            <span class="league">Premier League</span>
+                            <span class="match-time live-badge">LIVE 64'</span>
+                        </div>
+                        <div class="match-teams">
+                            <div class="team">
+                                <span class="team-name">Arsenal</span>
+                                <strong class="team-score">2</strong>
+                            </div>
+                            <div class="team">
+                                <span class="team-name">Chelsea</span>
+                                <strong class="team-score">1</strong>
+                            </div>
+                        </div>
+                        
+                        <!-- 1X2 Betting Odds Grid -->
+                        <div class="odds-grid">
+                            <button class="odds-btn" data-outcome="1" data-odds="1.85">
+                                <span class="label">1</span>
+                                <span class="odds-value">1.85</span>
+                            </button>
+                            <button class="odds-btn" data-outcome="X" data-odds="3.40">
+                                <span class="label">X</span>
+                                <span class="odds-value">3.40</span>
+                            </button>
+                            <button class="odds-btn" data-outcome="2" data-odds="4.20">
+                                <span class="label">2</span>
+                                <span class="odds-value">4.20</span>
+                            </button>
+                        </div>
+                        <a href="/match/101" class="more-markets">+142 Markets</a>
+                    </article>
+
+                </div>
+            </section>
+        </div>
+
+        <!-- 4. Universal Sticky Bet Slip Drawer (Desktop Sidebar / Mobile Drawer) -->
+        <aside id="betslip-drawer" class="betslip-container">
+            <div class="betslip-header">
+                <h4>Bet Slip</h4>
+                <span id="slip-count-badge" class="badge">0</span>
             </div>
-        </section>
+            
+            <div class="betslip-body" id="betslip-items">
+                <!-- Empty State -->
+                <p class="empty-slip-msg">Select odds to start building your bet.</p>
+            </div>
+
+            <div class="betslip-footer">
+                <div class="stake-input-group">
+                    <label for="stake-amount">Stake Amount</label>
+                    <input type="number" id="stake-amount" placeholder="Enter stake" min="10">
+                </div>
+                <div class="payout-summary">
+                    <span>Potential Payout:</span>
+                    <strong id="potential-payout">KSh 0.00</strong>
+                </div>
+                <button id="place-bet-btn" class="btn btn-success btn-full" disabled>Place Bet</button>
+            </div>
+        </aside>
+
     </main>
 
-    <!-- Footer -->
-    <footer>
-        <p>&copy; 2026 AppBrand. All rights reserved.</p>
+    <!-- Search Modal Overlay -->
+    <div id="search-modal" class="modal-overlay" style="display: none;">
+        <div class="modal-content">
+            <input type="search" id="search-input" placeholder="Search teams, leagues, or events...">
+            <button id="close-search-btn" class="btn-close">&times;</button>
+            <div id="search-results" class="results-container"></div>
+        </div>
+    </div>
+
+    <!-- 5. Legal & Regulatory Footer -->
+    <footer class="footer">
+        <div class="footer-links">
+            <div class="footer-col">
+                <h5>Platform</h5>
+                <a href="/about">About Us</a>
+                <a href="/promotions">Promotions</a>
+                <a href="/mobile-app">Mobile App</a>
+            </div>
+            <div class="footer-col">
+                <h5>Help & Support</h5>
+                <a href="/help">Help Center / FAQ</a>
+                <a href="/contact">Contact Support</a>
+                <a href="/rules">Betting Rules</a>
+            </div>
+            <div class="footer-col">
+                <h5>Legal & Compliance</h5>
+                <a href="/terms">Terms & Conditions</a>
+                <a href="/privacy">Privacy Policy</a>
+                <a href="/responsible-gambling">Responsible Gambling</a>
+                <a href="/account/limits">Self-Exclusion</a>
+            </div>
+        </div>
+
+        <div class="compliance-bar">
+            <span class="age-restriction">18+</span>
+            <p>Gambling can be addictive. Please play responsibly.</p>
+            <p>&copy; 2026 BetBrand. All rights reserved. Licensed by local Gaming Authorities.</p>
+        </div>
     </footer>
 
-    <!-- Link External JavaScript -->
-    <script src="script.js"></script>
+    <!-- External JavaScript -->
+    <script src="betslip.js"></script>
     <script src="app.js"></script>
 </body>
 </html>
