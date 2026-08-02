@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modern Web App</title>
+    <!-- Link External Stylesheet -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <!-- Header / Navigation -->
+    <header class="navbar">
+        <div class="logo">AppBrand</div>
+        <nav>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#features">Features</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+        <button id="theme-toggle" class="btn btn-secondary">Toggle Mode</button>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="container">
+        <!-- Hero Section -->
+        <section id="home" class="hero">
+            <h1>Welcome to Your New Web App</h1>
+            <p>A clean, responsive multi-file front-end foundation built with native HTML, CSS, and JS.</p>
+            <button id="action-btn" class="btn btn-primary">Click Me</button>
+        </section>
+
+        <!-- Dynamic Counter Card Section -->
+        <section id="features" class="card-section">
+            <div class="card">
+                <h3>Interactive Counter</h3>
+                <p id="counter-value">0</p>
+                <div class="button-group">
+                    <button id="decrement-btn" class="btn btn-outline">-</button>
+                    <button id="increment-btn" class="btn btn-outline">+</button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 AppBrand. All rights reserved.</p>
+    </footer>
+
+    <!-- Link External JavaScript -->
+    <script src="app.js"></script>
+</body>
+</html>
+
