@@ -1,25 +1,28 @@
-/* --- Root Variables & Theme --- */
+/* --- Root Variables & Sportsbook Dark Theme --- */
 :root {
-    --bg-color: #f8f9fa;
-    --text-color: #212529;
-    --card-bg: #ffffff;
-    --primary-color: #2563eb;
+    --bg-color: #0b0e14;          /* Main App Background */
+    --card-bg: #151c24;           /* Cards, Header, Drawers */
+    --card-hover: #1e2733;        /* Interactive Card Hover */
+    --border-color: #263342;      /* Dividers and borders */
+    
+    --text-primary: #f8fafc;      /* Primary text */
+    --text-muted: #94a3b8;        /* Secondary/Muted text */
+    
+    --primary-color: #2563eb;     /* Primary actions */
     --primary-hover: #1d4ed8;
-    --border-color: #e5e7eb;
-    --success-color: #16a34a;
-    --error-color: #dc2626;
+    --accent-color: #eab308;      /* Gold for Jackpots/Promos */
+    --odds-active: #0284c7;       /* Selected Odds highlight */
+    --success-color: #16a34a;     /* Deposits & Bet Buttons */
+    --success-hover: #15803d;
+    --live-color: #ef4444;        /* Live badges & scores */
+
     --font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    --radius-sm: 4px;
+    --radius-md: 8px;
+    --radius-lg: 12px;
 }
 
-/* Dark Mode Theme */
-[data-theme="dark"] {
-    --bg-color: #0f172a;
-    --text-color: #f8fafc;
-    --card-bg: #1e293b;
-    --border-color: #334155;
-}
-
-/* --- Global Resets --- */
+/* --- Global Resets & Typography --- */
 * {
     box-sizing: border-box;
     margin: 0;
@@ -32,28 +35,25 @@ html {
 
 body {
     background-color: var(--bg-color);
-    color: var(--text-color);
+    color: var(--text-primary);
     font-family: var(--font-family);
-    line-height: 1.6;
-    transition: background-color 0.3s ease, color 0.3s ease;
+    line-height: 1.5;
     display: flex;
     flex-direction: column;
     min-height: 100vh;
 }
 
-/* --- Layout Components --- */
-.container {
-    width: 90%;
-    max-width: 1200px;
-    margin: 2rem auto;
-    flex: 1;
+a {
+    color: inherit;
+    text-decoration: none;
 }
 
+/* --- 1. Top Navbar & Sports Bar --- */
 .navbar {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 1rem 2rem;
+    padding: 0.75rem 1.5rem;
     background-color: var(--card-bg);
     border-bottom: 1px solid var(--border-color);
     position: sticky;
@@ -61,170 +61,496 @@ body {
     z-index: 1000;
 }
 
-.logo {
-    font-size: 1.5rem;
-    font-weight: 700;
-    color: var(--primary-color);
-}
-
-.nav-links {
+.nav-left, .nav-right {
     display: flex;
-    list-style: none;
+    align-items: center;
     gap: 1.5rem;
 }
 
-.nav-links a {
-    text-decoration: none;
-    color: var(--text-color);
-    font-weight: 500;
-    transition: color 0.2s ease;
+.logo {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--accent-color);
+    letter-spacing: -0.5px;
 }
 
-.nav-links a:hover {
+.primary-nav {
+    display: flex;
+    gap: 1rem;
+}
+
+.primary-nav a {
+    padding: 0.5rem 0.75rem;
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: var(--text-muted);
+    border-radius: var(--radius-sm);
+    transition: all 0.2s ease;
+}
+
+.primary-nav a:hover, .primary-nav a.active {
+    color: var(--text-primary);
+    background-color: var(--border-color);
+}
+
+.sports-bar {
+    background-color: #0e131a;
+    border-bottom: 1px solid var(--border-color);
+    padding: 0.5rem 1.5rem;
+    overflow-x: auto;
+}
+
+.sports-list {
+    display: flex;
+    list-style: none;
+    gap: 1rem;
+    white-space: nowrap;
+}
+
+.sports-list a {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    padding: 0.35rem 0.75rem;
+    border-radius: 20px;
+    background-color: var(--card-bg);
+    transition: all 0.2s ease;
+}
+
+.sports-list a:hover, .sports-list a.active {
+    background-color: var(--primary-color);
+    color: #ffffff;
+}
+
+/* Wallet & Profile Info */
+.user-group {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    background-color: #0e131a;
+    padding: 0.35rem 0.75rem;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border-color);
+}
+
+.wallet-info {
+    font-size: 0.875rem;
+}
+
+.wallet-label {
+    color: var(--text-muted);
+    margin-right: 0.25rem;
+}
+
+/* --- 2. Main Layout (Feed + Bet Slip Drawer Sidebar) --- */
+.container.layout-with-sidebar {
+    display: grid;
+    grid-template-columns: 1fr 340px;
+    gap: 1.5rem;
+    max-width: 1400px;
+    width: 95%;
+    margin: 1.5rem auto;
+    flex: 1;
+}
+
+.main-content {
+    min-width: 0; /* Prevents grid overflow */
+}
+
+/* --- 3. Hero & Banners --- */
+.hero-banner {
+    background: linear-gradient(135deg, #1e1b4b 0%, #311b92 100%);
+    border: 1px solid #4338ca;
+    border-radius: var(--radius-lg);
+    padding: 2rem;
+    margin-bottom: 1.5rem;
+}
+
+.banner-content h2 {
+    font-size: 2rem;
+    color: #ffffff;
+    margin: 0.5rem 0;
+}
+
+.banner-content p {
+    color: #c7d2fe;
+    margin-bottom: 1.25rem;
+}
+
+.badge {
+    background-color: var(--accent-color);
+    color: #000000;
+    font-size: 0.75rem;
+    font-weight: 800;
+    padding: 0.2rem 0.5rem;
+    border-radius: var(--radius-sm);
+    text-transform: uppercase;
+}
+
+/* --- 4. Matches & Odds Grid --- */
+.match-section {
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    padding: 1.25rem;
+}
+
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.view-all {
     color: var(--primary-color);
+    font-size: 0.875rem;
+    font-weight: 600;
 }
 
-/* --- Buttons --- */
+.match-card {
+    background-color: #0e131a;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: 1rem;
+    margin-bottom: 0.75rem;
+    display: grid;
+    grid-template-columns: 1.5fr 2fr 2fr 1fr;
+    align-items: center;
+    gap: 1rem;
+    transition: border-color 0.2s ease;
+}
+
+.match-card:hover {
+    border-color: var(--primary-color);
+}
+
+.match-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    font-size: 0.8rem;
+
+    .league {
+        color: var(--text-muted);
+    }
+    .live-badge {
+        color: var(--live-color);
+        font-weight: 700;
+    }
+}
+
+.match-teams {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    font-weight: 600;
+
+    .team {
+        display: flex;
+        justify-content: space-between;
+        padding-right: 1rem;
+    }
+    .team-score {
+        color: var(--accent-color);
+    }
+}
+
+/* Odds Buttons Matrix */
+.odds-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.5rem;
+}
+
+.odds-btn {
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    padding: 0.5rem;
+    color: var(--text-primary);
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: all 0.15s ease;
+}
+
+.odds-btn .label {
+    font-size: 0.7rem;
+    color: var(--text-muted);
+}
+
+.odds-btn .odds-value {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--accent-color);
+}
+
+.odds-btn:hover {
+    background-color: var(--card-hover);
+    border-color: var(--primary-color);
+}
+
+/* Selected state when bet is in slip */
+.odds-btn.selected {
+    background-color: var(--odds-active);
+    border-color: var(--primary-color);
+    
+    .label, .odds-value {
+        color: #ffffff;
+    }
+}
+
+.more-markets {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    text-align: right;
+}
+
+/* --- 5. Sticky Bet Slip Drawer (Sidebar) --- */
+.betslip-container {
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    height: fit-content;
+    position: sticky;
+    top: 5.5rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.betslip-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.betslip-body {
+    padding: 1rem;
+    min-height: 150px;
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.empty-slip-msg {
+    color: var(--text-muted);
+    font-size: 0.875rem;
+    text-align: center;
+    margin-top: 2rem;
+}
+
+.betslip-footer {
+    padding: 1rem;
+    border-top: 1px solid var(--border-color);
+    background-color: #0e131a;
+    border-bottom-left-radius: var(--radius-lg);
+    border-bottom-right-radius: var(--radius-lg);
+}
+
+.stake-input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    margin-bottom: 1rem;
+}
+
+.stake-input-group label {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+}
+
+.stake-input-group input {
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    color: var(--text-primary);
+    padding: 0.6rem;
+    border-radius: var(--radius-sm);
+    font-size: 1rem;
+}
+
+.payout-summary {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+}
+
+.payout-summary strong {
+    color: var(--accent-color);
+}
+
+/* --- 6. Buttons & Interactive Controls --- */
 .btn {
     padding: 0.6rem 1.2rem;
     border: none;
-    border-radius: 6px;
+    border-radius: var(--radius-sm);
     cursor: pointer;
     font-weight: 600;
+    font-size: 0.875rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
     transition: background-color 0.2s ease, transform 0.1s ease;
 }
 
 .btn:active {
-    transform: scale(0.98);
+    transform: scale(0.97);
 }
 
-.btn-primary {
-    background-color: var(--primary-color);
-    color: white;
+.btn-primary { background-color: var(--primary-color); color: #ffffff; }
+.btn-primary:hover { background-color: var(--primary-hover); }
+
+.btn-secondary { background-color: var(--card-hover); color: var(--text-primary); border: 1px solid var(--border-color); }
+.btn-secondary:hover { background-color: var(--border-color); }
+
+.btn-success { background-color: var(--success-color); color: #ffffff; }
+.btn-success:hover { background-color: var(--success-hover); }
+
+.btn-full { width: 100%; }
+.btn-sm { padding: 0.35rem 0.75rem; font-size: 0.8rem; }
+.btn-icon { background: none; border: none; font-size: 1.2rem; cursor: pointer; }
+
+.btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
 }
 
-.btn-primary:hover {
-    background-color: var(--primary-hover);
-}
-
-.btn-secondary {
-    background-color: transparent;
-    border: 1px solid var(--border-color);
-    color: var(--text-color);
-}
-
-.btn-secondary:hover {
-    background-color: var(--border-color);
-}
-
-.btn-outline {
-    background-color: transparent;
-    border: 1px solid var(--primary-color);
-    color: var(--primary-color);
-    padding: 0.4rem 1.2rem;
-    font-size: 1.2rem;
-}
-
-.btn-outline:hover {
-    background-color: var(--primary-color);
-    color: white;
-}
-
-/* --- Hero & Section Layouts --- */
-.hero {
-    text-align: center;
-    padding: 4rem 1rem;
-}
-
-.hero h1 {
-    font-size: 2.5rem;
-    margin-bottom: 1rem;
-}
-
-.hero p {
-    font-size: 1.125rem;
-    max-width: 600px;
-    margin: 0 auto 1.5rem auto;
-    opacity: 0.9;
-}
-
-.card-section {
+/* --- 7. Search Modal Overlay --- */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.75);
+    backdrop-filter: blur(4px);
+    z-index: 2000;
     display: flex;
     justify-content: center;
-    margin-top: 2.5rem;
+    padding-top: 5rem;
 }
 
-.card {
+.modal-content {
     background-color: var(--card-bg);
     border: 1px solid var(--border-color);
-    padding: 2rem;
-    border-radius: 12px;
-    text-align: center;
+    border-radius: var(--radius-lg);
+    width: 90%;
+    max-width: 600px;
+    padding: 1.5rem;
+    position: relative;
+    height: fit-content;
+}
+
+.modal-content input[type="search"] {
     width: 100%;
-    max-width: 400px;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-}
-
-#counter-value {
-    font-size: 3rem;
-    font-weight: bold;
-    margin: 1rem 0;
-    color: var(--primary-color);
-}
-
-.button-group {
-    display: flex;
-    justify-content: center;
-    gap: 1rem;
-}
-
-/* --- Forms & Feedback --- */
-.contact-card {
-    text-align: left;
-}
-
-.contact-card h3 {
-    text-align: center;
-    margin-bottom: 1.5rem;
-}
-
-.form-group {
-    margin-bottom: 1rem;
-}
-
-.form-group input {
-    width: 100%;
-    padding: 0.75rem;
+    padding: 0.8rem;
+    background-color: #0e131a;
     border: 1px solid var(--border-color);
-    border-radius: 6px;
-    background-color: var(--bg-color);
-    color: var(--text-color);
+    border-radius: var(--radius-md);
+    color: var(--text-primary);
     font-size: 1rem;
 }
 
-.form-group input:focus {
-    outline: 2px solid var(--primary-color);
+.btn-close {
+    position: absolute;
+    right: 1rem;
+    top: 1rem;
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    font-size: 1.5rem;
+    cursor: pointer;
 }
 
-.feedback-message {
-    margin-top: 1rem;
-    font-size: 0.9rem;
-    text-align: center;
-    min-height: 1.25rem;
-}
-
-.feedback-message.success {
-    color: var(--success-color);
-}
-
-.feedback-message.error {
-    color: var(--error-color);
-}
-
-footer {
-    text-align: center;
-    padding: 1.5rem;
+/* --- 8. Legal & Compliance Footer --- */
+.footer {
+    background-color: var(--card-bg);
     border-top: 1px solid var(--border-color);
-    font-size: 0.875rem;
-    margin-top: 3rem;
+    margin-top: auto;
+    padding: 2rem 1.5rem 1rem 1.5rem;
+}
+
+.footer-links {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 2rem;
+    max-width: 1400px;
+    margin: 0 auto 2rem auto;
+}
+
+.footer-col {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.footer-col h5 {
+    color: var(--text-primary);
+    font-size: 0.95rem;
+    margin-bottom: 0.5rem;
+}
+
+.footer-col a {
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    transition: color 0.2s ease;
+}
+
+.footer-col a:hover {
+    color: var(--primary-color);
+}
+
+.compliance-bar {
+    text-align: center;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border-color);
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.age-restriction {
+    border: 2px solid var(--live-color);
+    color: var(--live-color);
+    font-weight: 800;
+    padding: 0.1rem 0.4rem;
+    border-radius: 50%;
+    font-size: 0.75rem;
+}
+
+/* --- 9. Responsive Adjustments --- */
+@media (max-width: 992px) {
+    .container.layout-with-sidebar {
+        grid-template-columns: 1fr;
+    }
+    
+    .betslip-container {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        top: auto;
+        border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+        z-index: 999;
+        box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.5);
+    }
+    
+    .match-card {
+        grid-template-columns: 1fr 1fr;
+        gap: 0.75rem;
+    }
+    
+    .more-markets {
+        grid-column: span 2;
+        text-align: left;
+    }
 }
