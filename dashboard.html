@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Dashboard - BetBrand</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="dashboard.css">
+</head>
+<body class="theme-dark">
+
+    <!-- Navbar Header -->
+    <header class="navbar">
+        <div class="nav-left">
+            <a href="/" class="logo">BetBrand</a>
+            <nav class="primary-nav">
+                <a href="/">Sports</a>
+                <a href="/live">Live Now</a>
+                <a href="/jackpot">Jackpot</a>
+                <a href="/promotions">Promos</a>
+            </nav>
+        </div>
+
+        <div class="nav-right">
+            <div id="user-profile" class="user-group">
+                <div class="wallet-info">
+                    <span class="wallet-label">Balance:</span>
+                    <strong id="header-user-balance">KSh 2,500.00</strong>
+                </div>
+                <a href="/account/deposit" class="btn btn-success btn-sm">Deposit</a>
+                <a href="/account/dashboard" class="profile-avatar active" aria-label="Account">👤</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Account Dashboard Main Container -->
+    <main class="container layout-account">
+        
+        <!-- Sidebar Account Navigation Menu -->
+        <aside class="account-sidebar">
+            <div class="user-profile-card">
+                <div class="avatar-circle">A</div>
+                <div class="profile-meta">
+                    <h4 id="user-full-name">Alex M.</h4>
+                    <span id="user-phone">+254 712 *** 789</span>
+                    <span class="kyc-badge verified">Verified</span>
+                </div>
+            </div>
+
+            <nav class="account-nav-menu">
+                <a href="/account/dashboard" class="account-nav-item active">
+                    <span class="icon">📊</span> Overview
+                </a>
+                <a href="/account/deposit" class="account-nav-item">
+                    <span class="icon">💳</span> Deposit Funds
+                </a>
+                <a href="/account/withdraw" class="account-nav-item">
+                    <span class="icon">🏦</span> Withdraw Funds
+                </a>
+                <a href="/account/my-bets" class="account-nav-item">
+                    <span class="icon">🎟️</span> My Bets <span class="nav-badge" id="open-bets-count">2</span>
+                </a>
+                <a href="/account/transactions" class="account-nav-item">
+                    <span class="icon">📜</span> Transactions
+                </a>
+                <a href="/account/verification" class="account-nav-item">
+                    <span class="icon">🪪</span> KYC Verification
+                </a>
+                <a href="/account/limits" class="account-nav-item">
+                    <span class="icon">🛡️</span> Gambling Limits
+                </a>
+                <button id="logout-btn" class="account-nav-item logout">
+                    <span class="icon">🚪</span> Logout
+                </button>
+            </nav>
+        </aside>
+
+        <!-- Main Account Dashboard Content Area -->
+        <section class="account-content">
+
+            <!-- Wallet Overview Metrics Grid -->
+            <div class="metrics-grid">
+                
+                <!-- Main Wallet -->
+                <div class="metric-card primary-wallet">
+                    <div class="metric-header">
+                        <span>Main Wallet</span>
+                        <span class="metric-icon">💰</span>
+                    </div>
+                    <h2 class="metric-value" id="dash-main-balance">KSh 2,500.00</h2>
+                    <div class="metric-actions">
+                        <a href="/account/deposit" class="btn btn-success btn-sm">Deposit</a>
+                        <a href="/account/withdraw" class="btn btn-secondary btn-sm">Withdraw</a>
+                    </div>
+                </div>
+
+                <!-- Bonus Wallet -->
+                <div class="metric-card bonus-wallet">
+                    <div class="metric-header">
+                        <span>Bonus Balance</span>
+                        <span class="metric-icon">🎁</span>
+                    </div>
+                    <h2 class="metric-value" id="dash-bonus-balance">KSh 500.00</h2>
+                    <p class="metric-subtext">4x wagering rollover remaining</p>
+                </div>
+
+                <!-- Active Bets -->
+                <div class="metric-card open-bets-card">
+                    <div class="metric-header">
+                        <span>Active Bets</span>
+                        <span class="metric-icon">⚽</span>
+                    </div>
+                    <h2 class="metric-value" id="dash-open-bets">2</h2>
+                    <a href="/account/my-bets" class="metric-link">Track open slips →</a>
+                </div>
+
+                <!-- Responsible Gambling Daily Limit Bar -->
+                <div class="metric-card limits-card">
+                    <div class="metric-header">
+                        <span>Daily Deposit Limit</span>
+                        <span class="metric-icon">🛡️</span>
+                    </div>
+                    <div class="limit-progress-group">
+                        <div class="limit-labels">
+                            <span id="limit-used">Used: KSh 1,000</span>
+                            <span id="limit-total">Max: KSh 5,000</span>
+                        </div>
+                        <div class="progress-bar-bg">
+                            <div class="progress-bar-fill" style="width: 20%;"></div>
+                        </div>
+                    </div>
+                    <a href="/account/limits" class="metric-subtext">Manage limits</a>
+                </div>
+
+            </div>
+
+            <!-- Recent Open Bets Section -->
+            <div class="dashboard-section">
+                <div class="section-title-bar">
+                    <h3>🎟️ Active Open Bets</h3>
+                    <a href="/account/my-bets" class="link-action">View All Bets</a>
+                </div>
+
+                <div class="bets-list" id="active-bets-container">
+                    
+                    <!-- Single Bet Card Example -->
+                    <article class="dash-bet-card">
+                        <div class="bet-card-header">
+                            <span class="bet-type-badge">ACCUMULATOR (2 Events)</span>
+                            <span class="bet-date">Today, 11:20 AM</span>
+                        </div>
+                        <div class="bet-legs">
+                            <div class="bet-leg">
+                                <strong class="leg-event">Arsenal vs Chelsea</strong>
+                                <span class="leg-market">1X2: Home Win @ 1.85</span>
+                                <span class="leg-status live">LIVE 64' (2-1)</span>
+                            </div>
+                            <div class="bet-leg">
+                                <strong class="leg-event">Real Madrid vs Barcelona</strong>
+                                <span class="leg-market">Over/Under 2.5: Over @ 1.70</span>
+                                <span class="leg-status upcoming">Starts 21:00</span>
+                            </div>
+                        </div>
+                        <div class="bet-card-footer">
+                            <div class="stake-payout">
+                                <div>Stake: <strong>KSh 500.00</strong></div>
+                                <div>Est. Payout: <strong class="text-accent">KSh 1,572.50</strong></div>
+                            </div>
+                            <button class="btn btn-cashout btn-sm" data-cashout-val="1150.00">
+                                Cash Out KSh 1,150.00
+                            </button>
+                        </div>
+                    </article>
+
+                </div>
+            </div>
+
+            <!-- Financial Transactions Log Section -->
+            <div class="dashboard-section">
+                <div class="section-title-bar">
+                    <h3>📜 Recent Transactions</h3>
+                    <a href="/account/transactions" class="link-action">Full History</a>
+                </div>
+
+                <div class="table-wrapper">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Type</th>
+                                <th>Reference</th>
+                                <th>Date & Time</th>
+                                <th>Method</th>
+                                <th>Amount</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="transaction-rows">
+                            <tr>
+                                <td><span class="txn-type credit">Deposit</span></td>
+                                <td><code>MP89341XA</code></td>
+                                <td>02 Aug 2026, 09:15 AM</td>
+                                <td>M-Pesa Express</td>
+                                <td class="text-success">+KSh 1,000.00</td>
+                                <td><span class="status-pill completed">Completed</span></td>
+                            </tr>
+                            <tr>
+                                <td><span class="txn-type debit">Bet Placed</span></td>
+                                <td><code>SLIP-90123</code></td>
+                                <td>02 Aug 2026, 11:20 AM</td>
+                                <td>Main Wallet</td>
+                                <td class="text-danger">-KSh 500.00</td>
+                                <td><span class="status-pill completed">Settled</span></td>
+                            </tr>
+                            <tr>
+                                <td><span class="txn-type credit">Payout</span></td>
+                                <td><code>WIN-44102</code></td>
+                                <td>01 Aug 2026, 22:40 PM</td>
+                                <td>Bet Winning</td>
+                                <td class="text-success">+KSh 3,200.00</td>
+                                <td><span class="status-pill completed">Completed</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </section>
+    </main>
+
+    <!-- Legal Compliance Footer -->
+    <footer class="footer">
+        <div class="compliance-bar">
+            <span class="age-restriction">18+</span>
+            <p>Gambling can be addictive. Please play responsibly.</p>
+            <p>&copy; 2026 BetBrand. All rights reserved. Licensed by Gaming Regulatory Authorities.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script src="dashboard.js"></script>
+</body>
+</html>
+
